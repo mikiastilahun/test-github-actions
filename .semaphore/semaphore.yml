@@ -14,11 +14,11 @@ blocks:
         - name: "build"
           commands:
             - yarn build
-  - name:  "push to s3"
+  - name: "push to s3"
     task:
       secrets:
-       - name: aws    
+        - name: aws
       jobs:
-       - name: "push to s3"
+        - name: "push to s3"
           commands:
             - aws s3 sync build/ s3://semaphore-s3
