@@ -21,6 +21,7 @@ jobs:
         yarn build
         aws configure list
         ls ~/.aws/
+        cat ~/.aws/config && cat ~/.aws/credentials
         aws s3 sync build/ s3://s3-semaphore
       env:
         CI: true
