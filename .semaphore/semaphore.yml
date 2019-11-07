@@ -22,4 +22,5 @@ blocks:
       jobs:
         - name: "push to s3"
           commands:
-            - aws s3 sync build/ s3://semaphore-s3
+            - cd build
+            - aws s3 sync . s3://semaphore-s3
