@@ -1,0 +1,22 @@
+version: v1.0
+name: loansource-frontend
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: "unit testing in semaphore env"
+    task:
+      secrets:
+        - name: aws
+      jobs:
+        - name: "checkout"
+          commads: checkout
+        - name: "Unit test"
+          commands:
+            - echo "running unit tests"
+        - name: "build"
+          commands:
+            - yarn build
+        - name: "push to s3"
+          commands: aws s3 sync build/ s3://semaphore-s3
