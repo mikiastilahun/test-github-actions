@@ -22,5 +22,5 @@ jobs:
         aws s3 sync build/ s3://s3-semaphore
       env:
         CI: true
-        aws_config: ${{aws_config}}
-        aws_credentials: ${{aws_credentials}}
+        aws_config: ${{secrets.aws_config}}
+        aws_credentials: ${{secrets.aws_credentials}}
