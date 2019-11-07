@@ -10,6 +10,7 @@ blocks:
       prologue:
         commands:
           - checkout
+          - yarn
       jobs:
         - name: "build"
           commands:
