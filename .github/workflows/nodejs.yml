@@ -13,17 +13,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 10
-    - name: yarn install, build, and test
+    - name: yarn
       run: |
-        mkdir ~/.aws && echo $aws_config && echo $aws_credentials
-        echo $aws_config >> ~/.aws/config && echo $aws_credentials >> ~/.aws/credentials
         yarn 
         yarn build
-        aws configure list
-        ls ~/.aws/
-        cat ~/.aws/config && cat ~/.aws/credentials
-        aws s3 sync build/ s3://s3-semaphore
       env:
         CI: true
-        aws_config: ${{secrets.aws_config}}
-        aws_credentials: ${{secrets.aws_credentials}}
+    - name: S3 Sync
+      uses: jakejarvis/s3-sync-action@v0.5.0
+      env:
+        AWS_S3_BUCKET:  ${{ secrets.AWS_S3_BUCKET }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: us-east-2
+        SOURCE_DIR: build
+
