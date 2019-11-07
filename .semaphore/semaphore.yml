@@ -11,7 +11,8 @@ blocks:
         - name: aws
       jobs:
         - name: "checkout"
-          commands: checkout
+          commands:
+            - checkout
         - name: "Unit test"
           commands:
             - echo "running unit tests"
@@ -19,4 +20,5 @@ blocks:
           commands:
             - yarn build
         - name: "push to s3"
-          commands: aws s3 sync build/ s3://semaphore-s3
+          commands:
+            - aws s3 sync build/ s3://semaphore-s3
