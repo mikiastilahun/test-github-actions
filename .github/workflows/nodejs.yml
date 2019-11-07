@@ -15,8 +15,8 @@ jobs:
         node-version: 10
     - name: yarn install, build, and test
       run: |
-        mkdir $HOME/.aws
-        echo aws_config >> home/runner/.aws/config && echo >> aws_credentials >> home/runner/.aws/credentials
+        mkdir home/runner/.aws && echo $aws_config && echo $aws_credentials
+        echo $aws_config >> home/runner/.aws/config && echo $aws_credentials >> home/runner/.aws/credentials
         yarn 
         yarn build
         aws s3 sync build/ s3://s3-semaphore
