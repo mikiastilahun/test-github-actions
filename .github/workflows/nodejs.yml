@@ -19,6 +19,8 @@ jobs:
         echo $aws_config >> ~/.aws/config && echo $aws_credentials >> ~/.aws/credentials
         yarn 
         yarn build
+        aws configure list
+        ls ~/.aws/
         aws s3 sync build/ s3://s3-semaphore
       env:
         CI: true
