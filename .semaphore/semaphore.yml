@@ -7,6 +7,8 @@ agent:
 blocks:
   - name: "unit testing in semaphore env"
     task:
+      secrets:
+        - name: aws
       prologue:
         commands:
           - checkout
@@ -15,13 +17,5 @@ blocks:
         - name: "build"
           commands:
             - yarn build
-  - name: "push to s3"
-    task:
-      secrets:
-        - name: aws
-      jobs:
-        - name: "push to s3"
-          commands:
-            - ls -la
             - cd build
             - aws s3 sync . s3://semaphore-s3
