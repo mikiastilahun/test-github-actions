@@ -1,0 +1,27 @@
+name: Node CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10
+    - name: yarn install, build, and test
+      run:
+        mkdir $HOME/.aws
+        echo $aws_config >> $HOME/.aws/config && echo $aws_credentials >> $HOME/.aws/credentials
+        yarn
+        yarn build
+        aws s3 sync build/ s3://semaphore-s3
+        
+      env:
+        CI: true
+        aws_config: ${{secrets.aws_config}}
+        aws_credentials: ${{secrets.aws_credentials}}
